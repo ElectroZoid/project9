@@ -1,0 +1,75 @@
+function Main.main 3
+push constant 0
+push constant 29
+call Output.moveCursor 2
+pop temp 0
+push constant 7
+call String.new 1
+push constant 83
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 48
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 30
+push constant 14
+push constant 482
+push constant 242
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 32
+push constant 16
+push constant 480
+push constant 240
+call Screen.drawRectangle 4
+pop temp 0
+push constant 256
+push constant 230
+push constant 1
+push constant 1
+neg
+push constant 4
+call Ball.new 5
+pop local 0
+push constant 476
+push constant 120
+push constant 16
+call Slider.new 3
+pop local 1
+push constant 32
+push constant 120
+push constant 16
+call Slider.new 3
+pop local 2
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+push constant 20
+call Sys.wait 1
+pop temp 0
+push local 0
+call Ball.move 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

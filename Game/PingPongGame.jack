@@ -1,0 +1,41 @@
+
+class PingPongGame {
+
+    field Ball ball;
+    field Slider player;
+    field Slider ai;
+    field int score;
+
+    constructor PingPongGame new(){
+
+        //Score init
+        let score=0;
+        do Output.moveCursor(0,29);
+        do Output.printString("Score:0");            //
+
+        //Screen init
+        do Screen.setColor(true);
+        do Screen.drawRectangle(30,14,482,242);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(32,16,480,240);
+
+        //Ball and slider init
+        let ball=Ball.new(256,230,1,-1,4);
+        let player=Slider.new(476,120,16);
+        let ai=Slider.new(32,120,16);
+    }
+    
+    method void dispose(){
+        do ball.dispose();
+        do player.dispose();
+        do ai.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void run(){
+
+        
+    }
+
+}
