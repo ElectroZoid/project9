@@ -1,0 +1,81 @@
+
+class PingPongGame {
+
+    field Ball ball;
+    field Slider player;
+    field Slider ai;
+    field int score;
+
+    constructor PingPongGame new(){
+
+        //Score init
+        let score=0;
+        do Output.moveCursor(0,29);
+        do Output.printString("Score:0");            //
+
+        //Screen init
+        do Screen.setColor(true);
+        do Screen.drawRectangle(30,14,482,242);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(32,16,480,240);
+
+        //Ball and slider init
+        let ball=Ball.new(36,230,1,-1,4);
+        let player=Slider.new(476,120,16);
+        let ai=Slider.new(32,120,16);
+        
+        return this;
+    }
+    
+    method void dispose(){
+        do ball.dispose();
+        do player.dispose();
+        do ai.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void check_collision_y(){
+        
+        var int y, newvy, oldvy;
+        let y=ball.gety();
+        let oldvy=ball.getvy();
+
+        if ((y<21) | (y>235)){
+            let newvy=0-oldvy;
+            do ball.setvy(newvy);
+        }
+        else{
+        }
+        return;
+    }
+
+    method void check_collision_x(){
+
+        var int x, newvx, oldvx;
+        let x=ball.getx();
+        let oldvx=ball.getvx();
+
+        if ((x<37) | (x>475)){
+            let newvx=0-oldvx;
+            do ball.setvx(newvx);
+        }
+        else{
+        }
+        return;
+    }
+
+    method void run(){
+
+        while (true){
+            do ball.move();
+            do check_collision_y();
+            do check_collision_x();
+            do Sys.wait(5);
+        }
+
+    return;
+        
+    }
+
+}
