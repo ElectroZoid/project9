@@ -1,0 +1,54 @@
+class Main {
+
+        function void main(){
+        
+        var Ball ball;
+        var Slider player;
+        var Slider ai;
+        var boolean quitGame;
+        var int key;
+        var boolean quitLevel;
+
+        do Output.moveCursor(0,29);
+        do Output.printString("Score:0");            //
+
+        //Screen init
+        do Screen.setColor(true);
+        do Screen.drawRectangle(30,14,482,242);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(32,16,480,240);
+
+        //Ball and slider init
+        let ball=Ball.new(256,230,1,-1,4);
+        let player=Slider.new(476,120,16);
+        let ai=Slider.new(33,120,16);
+//        while (true){
+//        do Sys.wait(20);
+//        do ball.move();
+//        }
+//        return;
+
+        let quitGame = false;
+        let  key = 0;
+    while( ~quitGame ){
+        let quitLevel = false;
+        while( ~quitLevel ){
+            do Sys.wait(20);
+            let key =  Keyboard.keyPressed();
+            if (key = 81)  {
+            let quitLevel = true;
+            let quitGame = true;
+            }
+            if (key = 131) { do player.moveUp(); }
+            if (key = 133) { do player.moveDown(); }
+            }
+
+
+            }
+
+        return;
+        }
+
+
+}
+
