@@ -28,10 +28,10 @@ class Slider{
     method void moveUp() {
         if (y > 18) {
             do Screen.setColor(false);
-            do Screen.drawRectangle(x, (y + length) - 1, x + 3, y + length);
-            let y = y - 1;
+            do Screen.drawRectangle(x, (y + length) - 2, x + 3, y + length);
+            let y = y - 2;
             do Screen.setColor(true);
-            do Screen.drawRectangle(x, y, x + 3, y + 1);
+            do Screen.drawRectangle(x, y, x + 3, y + 2);
             }
             return;
             }
@@ -40,10 +40,10 @@ class Slider{
    method void moveDown() {
       if ((y + length) < 238) {
          do Screen.setColor(false);
-         do Screen.drawRectangle(x, y, x + 3, y + 1);
-         let y = y + 1;
+         do Screen.drawRectangle(x, y, x + 3, y + 2);
+         let y = y + 2;
          do Screen.setColor(true);
-         do Screen.drawRectangle(x, (y + length) - 1, x + 3, y + length);
+         do Screen.drawRectangle(x, (y + length) - 2, x + 3, y + length);
       }
       return;
    }
