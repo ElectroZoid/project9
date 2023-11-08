@@ -1,0 +1,80 @@
+class Ball{
+
+    field int x,y,vx,vy,r;
+
+    constructor Ball new(int ax,int ay,int avx,int avy,int ar){
+        let x=ax;
+        let y=ay;
+        let vx=avx;
+        let vy=avy;
+        let r=ar;
+        do draw();
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void draw(){
+        do Screen.setColor(true);
+        do Screen.drawCircle(x,y,r);
+        return;
+    }
+
+    method void erase(){
+        do Screen.setColor(false);
+        do Screen.drawCircle(x,y,r);
+        return;
+    }
+
+    method void move(){
+        do erase();
+        let x=x+vx;
+        let y=y+vy;
+        do draw();
+        return;
+    }
+
+    method int getx(){
+        return x;
+    }
+
+    method int gety(){
+        return y;
+    }
+
+    method int getr(){
+        return r;
+    }
+
+    method int getvx(){
+        return vx;
+    }
+
+    method int getvy(){
+        return vy;
+    }
+
+    method void setvx(int avx){
+        let vx=avx;
+        return;
+    }
+
+    method void setvy(int avy){
+        let vy=avy;
+        return;
+    }
+
+    method void setx(int ax){
+        let x=ax;
+        return;
+    }
+
+    method void sety(int ay){
+        let y=ay;
+        return;
+    }
+
+}

@@ -1,0 +1,66 @@
+class Slider{
+    field int x,y;
+    field int length;
+    field int v;
+
+    constructor Slider new(int Ax, int Ay, int Alength, int velocity) {
+        let x = Ax;
+        let y = Ay;
+        let length = Alength;
+        let v = velocity;
+        do draw();
+        return this;
+    }
+
+    /** Draws the slider on the screen. */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + 3, y + length);//before x+4
+        return;
+    }
+
+    /** Erases the slider from the screen. */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + 3, y + length);//before x+4
+        return;
+    }
+
+    /** Moves the square up by 2 pixels. */
+    method void moveUp() {
+        if (y > 18) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, (y + length) - v, x + 3, y + length);
+            let y = y - v;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + 3, y + v);
+            }
+            return;
+            }
+
+   /** Moves the square down by 2 pixels. */
+   method void moveDown() {
+      if ((y + length) < 238) {
+         do Screen.setColor(false);
+         do Screen.drawRectangle(x, y, x + 3, y + v);
+         let y = y + v;
+         do Screen.setColor(true);
+         do Screen.drawRectangle(x, (y + length) - v, x + 3, y + length);
+      }
+      return;
+   }
+
+   method int gety(){
+    return y;
+   }
+
+   method int getlength(){
+    return length;
+   }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}
