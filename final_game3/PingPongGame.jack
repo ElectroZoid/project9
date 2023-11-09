@@ -18,9 +18,9 @@ class PingPongGame {
         
         //inst init
         do Output.moveCursor(0,1);
-        do Output.printString("Space to start!");
+        do Output.printString("Space to Start!");
         do Output.moveCursor(0,53);
-        do Output.printString("q to quit!");
+        do Output.printString("Q to Quit!");
 
         //Screen init
         do Screen.setColor(true);
