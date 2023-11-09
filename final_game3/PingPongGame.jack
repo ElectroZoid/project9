@@ -1,0 +1,209 @@
+
+class PingPongGame {
+
+    field Ball ball;
+    field Slider player;
+    field Slider ai;
+    field int score;
+    field boolean quitLevel;
+    field boolean quitGame;
+    field int key;
+
+    constructor PingPongGame new(){
+
+        //Score init
+        let score=0;
+        do Output.moveCursor(0,30);
+        do Output.printString("Score:0");
+        
+        //inst init
+        do Output.moveCursor(0,1);
+        do Output.printString("Space to start!");
+        do Output.moveCursor(0,53);
+        do Output.printString("q to quit!");
+
+        //Screen init
+        do Screen.setColor(true);
+        do Screen.drawRectangle(30,14,482,242);
+        do Screen.setColor(false);
+        do Screen.drawRectangle(32,16,480,240);
+
+        //Ball and slider init
+        let ball=Ball.new(128,230,1,-1,4);
+        //let ball=Ball.new(128,128,1,-1,4);
+        let player=Slider.new(476,108,40,2);
+        //let ai=Slider.new(33,108,40,1);
+        let ai=Slider.new(33,114,28,1);
+
+
+        return this;
+    }
+
+    method void dispose(){
+        do ball.dispose();
+        do player.dispose();
+        do ai.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void check_collision_y(){
+
+        var int y, next_y, newvy, oldvy;
+        let y = ball.gety();
+        let oldvy = ball.getvy();
+
+        let next_y = y + oldvy;
+
+        if ((next_y<21) | (next_y>235)){
+            if(next_y<21){
+                let newvy=0-oldvy;
+                do ball.erase();
+                do ball.sety(21);
+                do ball.draw();
+                do ball.setvy(newvy);
+
+            }else{
+                let newvy=0-oldvy;
+                do ball.erase();
+                do ball.sety(235);
+                do ball.draw();
+                do ball.setvy(newvy);
+            }
+
+        }
+        else{
+
+        }
+
+        return;
+    }
+
+    method void check_collision_x(){
+
+        var int x, newvx, oldvx, value, newvy, oldvy, y, radius , up_y, down_y, slider_y, slider_length, slider_down_y, ai_up, ai_down, ai_length;
+        let radius=ball.getr();
+        let value = 0;
+        let x=ball.getx();
+        let y=ball.gety();
+        let oldvx=ball.getvx();
+        let oldvy=ball.getvy();
+
+        let up_y = y-radius;
+        let down_y = y+radius;
+
+        let slider_y = player.gety();
+
+        let slider_length = player.getlength();
+        let slider_down_y = slider_y + slider_length;
+
+        let ai_up = ai.gety();
+        let ai_length = ai.getlength();
+        let ai_down = ai_up + ai_length;
+
+        if ((x<42) | (x>470)){
+            let newvx=0-oldvx;
+            do ball.setvx(newvx);
+
+            if(x>470){
+                if((down_y < slider_y)|(up_y > slider_down_y)){let quitLevel = true;let quitGame = true;}
+                else{
+
+                    if (key = 131) { let newvy = oldvy - 1; do ball.setvy(newvy); }
+                    if (key = 133) { let newvy = oldvy + 1; do ball.setvy(newvy); }
+
+                    if((up_y > slider_y)|(up_y = slider_y)){let value = value+1;}
+                    if((down_y < slider_down_y)|(down_y = slider_down_y)){let value = value+2;}
+
+                    if (value = 1){ let newvy = oldvy + 1; do ball.setvy(newvy); }
+                    else{
+                        if(value=2){ let newvy = oldvy - 1; do ball.setvy(newvy); }
+                    }
+
+
+                }
+            }
+            else{
+                if((down_y < ai_up)|(up_y > ai_down)){
+                    let quitLevel = true;
+                    let score = score + 1;
+
+                    do Output.moveCursor(0,30);
+                    do Output.printString("Score:");
+                    do Output.printInt(score);
+
+                    do ai.dispose();
+                    do ball.dispose();
+                    do player.dispose();
+
+                    //Ball and slider init
+                    let ball=Ball.new(128,230,1,-1,4);
+                    //let ball=Ball.new(128,128,1,-1,4);
+                    let player=Slider.new(476,108,40,2);
+                    //let ai=Slider.new(33,108,40,1);
+                    let ai=Slider.new(33,114,28,1);
+                    }
+                else{
+
+                }
+            }
+
+        }else{}
+
+        return;
+    }
+
+    method void movement_ai(){
+
+        if (ball.getvy()>0){
+            do ai.moveDown();
+        }
+        else{
+            if (ball.getvy()<0){
+                do ai.moveUp();
+            }
+            else{
+            }
+        }
+        return;
+
+    }
+
+    method void run(){
+        let quitGame = false;
+        let  key = 0;
+        while( ~quitGame ){
+            let  key = 0;
+            let key =  Keyboard.keyPressed();
+            let quitLevel = true;
+            if(key=32){
+                let quitLevel = false;
+            }
+            if(key=81){
+                let quitGame = true;
+            }
+            while( ~quitLevel ){
+                let key =  Keyboard.keyPressed();
+                if (key = 81)  {
+                    let quitLevel = true;
+                    let quitGame = true;
+                }
+                if (key = 131) { do player.moveUp(); }
+                if (key = 133) { do player.moveDown(); }
+
+
+                do check_collision_y();
+                do check_collision_x();
+                do ball.move();
+                do movement_ai();
+                do Sys.wait(10);
+
+                }
+
+                }
+            do Output.moveCursor(12,28);
+            do Output.printString("Game Over!");
+
+            return;   
+    }
+}
